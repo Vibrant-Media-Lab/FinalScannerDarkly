@@ -167,6 +167,7 @@ public class Controller {
         hardColorMode.getItems().addAll("Text and Line Drawings Only", "Text and Photographs", "Full Photographs");
         //Sets default value in hard tab color options
         hardColorMode.setValue("Text and Line Drawings Only");
+        easyFilePath.setText("(Default): Documents/Bookscans");
     }
 
     //
@@ -220,7 +221,8 @@ public class Controller {
                     public Void call() throws Exception {
                         makeDirectories();
                         importFromCameras();
-                        if (!camerasConnected) {
+                        if (!camerasConnected) {                    easyFilePath.setText(currentDirectory.toString());
+
                             rotateImages();
                             //deleteFromCameras();
                         }
@@ -1751,6 +1753,13 @@ low red: 0 blue 0 green 0
                 if (alert.getResult() == ButtonType.YES) {
                     hardDelete.setText("Deleting!");
                     runOperation("delete");
+                    try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                    hardDelete.setText("Deleted!");
                 }
             }
         });
