@@ -350,8 +350,8 @@ public class Controller {
         }catch (Exception e){
             System.out.println("Error waiting");
         }
-        javafx.application.Platform.runLater( () -> easyCreate.setText("Download and Create PDF"));
-        javafx.application.Platform.runLater( () -> mediumCreatePDF.setText("Download and Create PDF"));
+        javafx.application.Platform.runLater( () -> easyCreate.setText("Run"));
+        javafx.application.Platform.runLater( () -> mediumCreatePDF.setText("Run"));
     }
 
     
