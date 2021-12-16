@@ -476,10 +476,11 @@ public class Controller {
         });
     }
 
-
+//** this method scans the first image on the camera to identify if the red paper is present
+//** it then sets the left and right cameras accordingly
+	
     void getColor() {
-		try {
-
+	try {
 	File testDirPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C003%5D/DCIM/100CANON");
 	String contents [] = testDirPath.list();
 	System.out.println(contents[0]);
@@ -492,7 +493,7 @@ public class Controller {
     BufferedImage image1 = ImageIO.read(file1);
     boolean isRed = false;
 
-    //find red pixels
+    //**finds red pixels
     for (int y = 0; y < image1.getHeight(); y++) {
         for (int x = 0; x < image1.getWidth(); x++) {
         	
@@ -505,7 +506,6 @@ public class Controller {
    
             }
     }
-        
         if(isRed ==true) {
         	File leftPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C003%5D/DCIM/100CANON");
         	leftCamDirectory = leftPath;
