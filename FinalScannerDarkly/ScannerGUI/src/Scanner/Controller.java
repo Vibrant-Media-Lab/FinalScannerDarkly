@@ -421,7 +421,7 @@ public class Controller {
             public void handle(ActionEvent event) {
                 //Open file and scan for color
         		try {
-        			File testDirPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C003%5D/DCIM/100CANON");
+        			File testDirPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
         			String contents [] = testDirPath.list();
         			System.out.println(contents[0]);
         			System.out.println(testDirPath+"/"+contents[0]);	
@@ -448,15 +448,15 @@ public class Controller {
         		    }
         		        
         		        if(isRed ==true) {
-        		        	File leftPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C003%5D/DCIM/100CANON");
+        		        	File leftPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
         		        	leftCamDirectory = leftPath;
-        		        	File rightPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C002%5D/DCIM/100CANON");
+        		        	File rightPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
         		        	rightCamDirectory = rightPath;
         		        }
         		        else {
-        		        	File leftPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C002%5D/DCIM/100CANON");
+        		        	File leftPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
         		        	leftCamDirectory = leftPath;
-        		        	File rightPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C003%5D/DCIM/100CANON");
+        		        	File rightPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
         		        	rightCamDirectory = rightPath;
         		        }
         		  } 
@@ -481,7 +481,7 @@ public class Controller {
 	
     void getColor() {
 	try {
-	File testDirPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C003%5D/DCIM/100CANON");
+	File testDirPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
 	String contents [] = testDirPath.list();
 	System.out.println(contents[0]);
 	System.out.println(testDirPath+"/"+contents[0]);	
@@ -507,15 +507,15 @@ public class Controller {
             }
     }
         if(isRed ==true) {
-        	File leftPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C003%5D/DCIM/100CANON");
+        	File leftPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
         	leftCamDirectory = leftPath;
-        	File rightPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C002%5D/DCIM/100CANON");
+        	File rightPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
         	rightCamDirectory = rightPath;
         }
         else {
-        	File leftPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C002%5D/DCIM/100CANON");
+        	File leftPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
         	leftCamDirectory = leftPath;
-        	File rightPath = new File("/run/user/1000/gvfs/gphoto2:host=%5Busb%3A001%2C003%5D/DCIM/100CANON");
+        	File rightPath = new File("/run/user/1000/gvfs/gphoto2:host=Canon_Inc._Canon_Digital_Camera/DCIM/100CANON");
         	rightCamDirectory = rightPath;
         }
   } 
@@ -538,8 +538,12 @@ public class Controller {
                     runOperation("easy");
                 }
                 else{
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Please chose a place to scan to.", ButtonType.OK);
-                    alert.showAndWait();
+                    //Alert alert = new Alert(Alert.AlertType.ERROR, "Please chose a place to scan to.", ButtonType.OK);
+                    //alert.showAndWait();
+                    currentDirectory = new File("/home/bookscanner/Documents/Bookscans");
+                    easyCreate.setText("Processing...");
+                    appendLog("Processing...\n");
+                    runOperation("easy");
                 }
                 easyCreate.setText("Download and Create PDF");
             }
@@ -561,7 +565,7 @@ public class Controller {
             	fileOfDirectory = currentDirectory.toString();
             	os = System.getProperty("os.name").toLowerCase();
             } else {
-            	fileOfDirectory = "/home/bookscan/Documents/bookscans";
+            	fileOfDirectory = "/home/bookscanner/Documents/Bookscans";
             	os = System.getProperty("os.name").toLowerCase();
             }
             if (os.contains("win")) {
@@ -957,13 +961,13 @@ public class Controller {
 
             ArrayList<String> commands = new ArrayList<String>();
 
-            String[] command = {"scantailor-cli",
+            String[] command = {"scantailor-universal-cli",
                 "--layout=" + layout,
                 "--layout-direction=" + layoutDirection,
                 "--orientation=" + orientation,
                 "--rotate=" + rotate,
                 "--deskew=" + deskew,
-                "--content-direction=" + contentDirection,
+                "--content-detection=" + contentDirection,
                 "--margins=" + margins,
                 "--alignment=" + alignment,
                 "--dpi=" + dpi,
@@ -991,13 +995,13 @@ public class Controller {
             }*/
 
             if(os.contains("win")){
-                command = new String[]{"C:\\Program Files\\Scan Tailor\\scantailor-cli.exe",
+                command = new String[]{"/usr/bin/scantailor-universal-cli.exe",
                         "--layout=" + layout,
                         "--layout-direction=" + layoutDirection,
                         "--orientation=" + orientation,
                         "--rotate=" + rotate,
                         "--deskew=" + deskew,
-                        "--content-direction=" + contentDirection,
+                        "--content-detection=" + contentDirection,
                         "--margins=" + margins,
                         "--alignment=" + alignment,
                         "--dpi=" + dpi,
@@ -1093,7 +1097,7 @@ public class Controller {
             Process process = pb.start();
 
             if(os.contains("win")){
-                command = new String[]{"C:\\Program Files\\ImageMagick-7.0.8-Q16\\magick.exe", "convert", inputImages, fileOfDirectory + projectName + ".pdf"};
+                command = new String[]{"/usr/lib/x86_64-linux-gnu/libMagickCore-6.Q16.so.6.0.0.exe", "convert", inputImages, fileOfDirectory + projectName + ".pdf"};
             }
 
             //Re-direct output of process to console
@@ -1146,7 +1150,7 @@ public class Controller {
             String[] command = new String[]{"tesseract", inputImages, fileOfDirectory + projectName, "txt"};
 
             if(os.contains("win")){
-                command[0] = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract";
+                command[0] = "/usr/bin/tesseract";
             }
 
             ProcessBuilder pb = new ProcessBuilder(command);
@@ -1196,7 +1200,7 @@ public class Controller {
             String[] command = new String[]{"tesseract", path, fileOfDirectory + fileName, "-l", "eng", "pdf"};
 
             if(os.contains("win")){
-                command[0] = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract";
+                command[0] = "/usr/bin/tesseract";
             }
 
             ProcessBuilder pb = new ProcessBuilder(command);
@@ -1236,7 +1240,7 @@ public class Controller {
 
             String os = System.getProperty("os.name").toLowerCase();
             if(os.contains("win")){
-                command[0] = "C:\\Program Files (x86)\\PDFtk Server\\bin\\pdftk.exe";
+                command[0] = "/usr/share/pdftk/pdftk.jar";
             }
 
             String tempName = path.substring(0, path.length()-4) + "_.pdf";
@@ -1473,6 +1477,9 @@ public class Controller {
         mediumCreatePDF.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	if (currentDirectory == null) {
+            		currentDirectory = new File("/home/bookscanner/Documents/Bookscans");
+            	}
                 mediumCreatePDF.setDisable(true);
                 mediumCreatePDF.setText("Processing!");
                 appendLog("Processing...\n");
